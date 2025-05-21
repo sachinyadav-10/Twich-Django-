@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "Twitch/Twitch/wsgi.py",
+      "use": "@vercel/python",
+      "config" : {"maxlambdasize" : "50mb", "runtime":"python3.9"}
+    },
+    {
+        "src":"build_files.sh",
+        "use":"@vercel/static-build",
+        "config":{
+            "distDir":"staticfiles_build"
+        }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/static/(.*)",
+      "dest": "Twitch/Twitch/wsgi.py"
+    }
+  ]
+}
